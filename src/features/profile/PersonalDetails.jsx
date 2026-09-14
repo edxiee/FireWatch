@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase"; 
+import { auth, db } from "../../services/firebase.js"; 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
-import UserNavBar from "./UserNavBar"; 
+import UserNavBar from "../../components/navigation/UserNavBar.jsx"; 
 import "./PersonalDetails.css"; 
 
 export default function PersonalDetails() {
@@ -153,7 +153,7 @@ export default function PersonalDetails() {
               <div className="menu-text-compact">
                 <p className="menu-title-small red-text">Logout</p>
               </div>
-              <div className="arrow-small">›</div>
+              <div className="arrow-small">â€º</div>
             </div>
 
           </div>

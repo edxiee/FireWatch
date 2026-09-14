@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
+﻿import React, { useState, useEffect } from "react";
+import { db } from "../../../services/firebase.js";
 import { collection, onSnapshot, doc, deleteDoc, query, orderBy } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "./AdminNavbar.jsx";
+import AdminNavbar from "../../../components/navigation/AdminNavBar.jsx";
 import "./UserList.css";
 
 export default function UserList() {

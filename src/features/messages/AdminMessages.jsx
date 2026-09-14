@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { db } from "../firebase"; 
+﻿import React, { useState, useEffect, useRef } from "react";
+import { db } from "../../services/firebase.js"; 
 import { 
   collection, onSnapshot, query, orderBy, addDoc, 
   serverTimestamp, doc, updateDoc, getDoc, getDocs 
 } from "firebase/firestore";
-import AdminNavbar from "./AdminNavbar.jsx";
+import AdminNavbar from "../../components/navigation/AdminNavBar.jsx";
 import "./AdminMessages.css"; 
 
 export default function AdminMessages() {
@@ -179,13 +179,13 @@ export default function AdminMessages() {
                     {chat.lastMessage || "No messages yet"}
                   </p>
                 </div>
-                <div className="arrow-link">→</div>
+                <div className="arrow-link">â†’</div>
               </div>
             ))}
           </div>
         ) : (
           <div className="messages-container">
-            <button className="back-btn" onClick={() => setActiveChatUser(null)}>←</button>
+            <button className="back-btn" onClick={() => setActiveChatUser(null)}>â†</button>
             {renderMessages()}
             <div ref={messagesEndRef} />
           </div>
@@ -202,7 +202,7 @@ export default function AdminMessages() {
               onChange={(e) => setReply(e.target.value)} 
               onKeyDown={(e) => e.key === 'Enter' && handleReply()}
             />
-            <button type="button" onClick={handleReply}>➤</button>
+            <button type="button" onClick={handleReply}>âž¤</button>
           </div>
         )}
         <AdminNavbar /> 

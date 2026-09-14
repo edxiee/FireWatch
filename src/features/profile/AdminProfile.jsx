@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { auth, db } from "../firebase";
+﻿import React, { useState, useEffect } from "react";
+import { auth, db } from "../../services/firebase.js";
 import { doc, getDoc } from "firebase/firestore";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "./AdminNavbar.jsx";
+import AdminNavbar from "../../components/navigation/AdminNavBar.jsx";
 import "./AdminProfile.css";
 
 export default function AdminProfile() {
@@ -78,7 +78,7 @@ export default function AdminProfile() {
               <div className="menu-text-compact">
                 <p className="menu-title-small">Register Admin</p>
               </div>
-              <div className="arrow-small">›</div>
+              <div className="arrow-small">â€º</div>
             </div>
 
             <div className="menu-item-compact" onClick={() => navigate("/admin/users")}>
@@ -91,7 +91,7 @@ export default function AdminProfile() {
                 </svg>
               </div>
               <div className="menu-text-compact"><p className="menu-title-small">User Management</p></div>
-              <div className="arrow-small">›</div>
+              <div className="arrow-small">â€º</div>
             </div>
 
             <div className="menu-item-compact logout" onClick={handleLogout}>

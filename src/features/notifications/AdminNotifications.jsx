@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
+﻿import React, { useState, useEffect } from "react";
+import { db } from "../../services/firebase.js";
 import { 
   collection, 
   onSnapshot, 
@@ -10,7 +10,7 @@ import {
   getDoc,  
   serverTimestamp 
 } from "firebase/firestore";
-import AdminNavbar from "./AdminNavbar.jsx";
+import AdminNavbar from "../../components/navigation/AdminNavBar.jsx";
 import "./AdminNotifications.css";
 
 // Custom SVG Icon for Resolved State
@@ -122,7 +122,7 @@ export default function AdminNotifications() {
             alerts.map((alert) => (
               <div key={alert.id} className={`alert-card ${alert.status}`}>
                 <div className="alert-header">
-                  <span className="alert-type">🔥 {alert.type}</span>
+                  <span className="alert-type">ðŸ”¥ {alert.type}</span>
                   <span className="alert-time">
                     {alert.timestamp?.toDate().toLocaleString()}
                   </span>
@@ -139,7 +139,7 @@ export default function AdminNotifications() {
                       rel="noreferrer"
                       className="map-link"
                     >
-                      📍 View on Google Maps
+                      ðŸ“ View on Google Maps
                     </a>
                   )}
                 </div>

@@ -1,6 +1,6 @@
-import React from "react";
+﻿import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
+import "../../app/App.css";
 
 function LandingPage() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function LandingPage() {
           app that helps users to keep.
         </p>
         <button className="get-started-btn" onClick={handleGetStarted}>
-          Get Started <span className="arrow">→</span>
+          Get Started <span className="arrow">â†’</span>
         </button>
       </footer>
     </div>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { db, auth } from "../firebase";
+﻿import React, { useState, useEffect } from 'react';
+import { db, auth } from "../../services/firebase.js";
 import { collection, query, where, onSnapshot, orderBy, limit } from "firebase/firestore";
-import UserNavBar from './UserNavBar'; 
+import UserNavBar from '../../components/navigation/UserNavBar.jsx'; 
 import './Notification.css'; 
 
 const Notification = () => {
@@ -40,7 +40,7 @@ const Notification = () => {
     if (latestEmergency.status === "responding") {
       return (
         <div className="notif-card responding">
-          <strong>🚒 Response in Progress</strong>
+          <strong>ðŸš’ Response in Progress</strong>
           <p>The fireman responded to your help request</p>
         </div>
       );
@@ -49,7 +49,7 @@ const Notification = () => {
     if (latestEmergency.status === "resolved") {
       return (
         <div className="notif-card success">
-          <strong>✅ Alert Resolved</strong>
+          <strong>âœ… Alert Resolved</strong>
           <p>Your help request has been resolved</p>
         </div>
       );
@@ -58,7 +58,7 @@ const Notification = () => {
     // Default "Active" state
     return (
       <div className="notif-card danger">
-        <strong>🔥 Emergency Reported</strong>
+        <strong>ðŸ”¥ Emergency Reported</strong>
         <p>Your request is active. Waiting for fireman response...</p>
       </div>
     );

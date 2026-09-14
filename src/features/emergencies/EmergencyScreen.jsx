@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { db, auth } from "../firebase"; 
+import { db, auth } from "../../services/firebase.js"; 
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import UserNavBar from "./UserNavBar"; 
+import UserNavBar from "../../components/navigation/UserNavBar.jsx"; 
 import "./EmergencyScreen.css"; 
 
 export default function EmergencyScreen() {
@@ -85,9 +85,9 @@ export default function EmergencyScreen() {
         {/* Pulsing Status Text - Centered via CSS */}
         <div className="location-title">
           {locationReady ? (
-            <span className="gps-active">📍 GPS Signal Active</span>
+            <span className="gps-active">ðŸ“ GPS Signal Active</span>
           ) : (
-            <span className="searching-gps">📡 Searching for GPS signal...</span>
+            <span className="searching-gps">ðŸ“¡ Searching for GPS signal...</span>
           )}
         </div>
 

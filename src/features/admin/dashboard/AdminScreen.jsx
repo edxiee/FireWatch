@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
+import { db } from "../../../services/firebase.js";
 import { collection, query, where, onSnapshot, getCountFromServer } from "firebase/firestore";
-import AdminNavbar from "./AdminNavbar.jsx";
+import AdminNavbar from "../../../components/navigation/AdminNavBar.jsx";
 import "./AdminScreen.css"; 
 
 export default function AdminScreen() {
@@ -11,35 +11,74 @@ export default function AdminScreen() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const q = query(collection(db, "emergencies"), where("status", "==", "active"));
-    const unsubscribeEmergencies = onSnapshot(q, (snapshot) => {
-      if (!snapshot.empty) {
-        const docData = snapshot.docs[0].data();
-        const id = snapshot.docs[0].id;
-        setActiveEmergency({ id, ...docData });
+    const emergenciesQuery = query(
+      collection(db, "emergencies"),
+      where("status", "==", "active")
+    );
 
-        const audio = new Audio("https://assets.mixkit.co/sfx/preview/mixkit-emergency-alert-alarm-1007.mp3");
-        audio.play().catch(() => console.log("Audio waiting for interaction"));
-      } else {
+    const unsubscribeEmergencies = onSnapshot(
+      emergenciesQuery,
+
+      (snapshot) => {
+        if (!snapshot.empty) {
+          const emergencyDoc = snapshot.docs[0];
+
+          setActiveEmergency({
+            id: emergencyDoc.id,
+            ...emergencyDoc.data(),
+          });
+
+          const audio = new Audio(
+            "https://assets.mixkit.co/sfx/preview/mixkit-emergency-alert-alarm-1007.mp3"
+          );
+
+          audio
+            .play()
+            .catch(() =>
+              console.log("Audio waiting for interaction")
+            );
+        } else {
+          setActiveEmergency(null);
+        }
+      },
+
+      (error) => {
+        console.error(
+          "[FireWatch] Emergency listener error:",
+          error
+        );
+
         setActiveEmergency(null);
       }
-    });
+    );
 
     const fetchStats = async () => {
-      const reportsColl = collection(db, "emergencies");
-      const usersColl = collection(db, "users");
-      
-      const reportCount = await getCountFromServer(reportsColl);
-      const userCount = await getCountFromServer(usersColl);
-      
-      setStats({
-        reports: reportCount.data().count,
-        users: userCount.data().count
-      });
+      try {
+        const reportsColl = collection(db, "emergencies");
+        const usersColl = collection(db, "users");
+
+        const [reportCount, userCount] = await Promise.all([
+          getCountFromServer(reportsColl),
+          getCountFromServer(usersColl),
+        ]);
+
+        setStats({
+          reports: reportCount.data().count,
+          users: userCount.data().count,
+        });
+      } catch (error) {
+        console.error(
+          "[FireWatch] Failed to load dashboard statistics:",
+          error
+        );
+      }
     };
 
     fetchStats();
-    return () => unsubscribeEmergencies();
+
+    return () => {
+      unsubscribeEmergencies();
+    };
   }, []);
 
   return (
@@ -96,7 +135,6 @@ export default function AdminScreen() {
             <span className="stat-label">Total Logs</span>
           </div>
           
-          {/* Changed: Removed 'chat-card' class so it uses default white styling */}
           <div className="stat-card" onClick={() => navigate("/admin/messages")}>
             <span className="stat-value">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { auth, db } from "../firebase";
+﻿import React, { useState } from "react";
+import { auth, db } from "../../../services/firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import AdminNavbar from "./AdminNavbar";
+import AdminNavbar from "../../../components/navigation/AdminNavBar.jsx";
 import "./CreateAdmin.css";
 
 export default function CreateAdmin() {
@@ -51,7 +51,7 @@ export default function CreateAdmin() {
       {/* TOP BAR - Title Only */}
       <div className="admin-top-bar">
         <button onClick={() => navigate(-1)} className="back-btn">
-          <span className="back-icon">←</span>
+          <span className="back-icon">â†</span>
         </button>
         <div className="top-title">Register Admin</div>
       </div>
