@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { db, auth } from "../firebase"; 
+﻿import React, { useState, useEffect, useRef } from 'react';
+import { db, auth } from "../../services/firebase.js"; 
 import { 
   collection, 
   addDoc, 
@@ -12,7 +12,7 @@ import {
   getDoc 
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import UserNavBar from "./UserNavBar"; 
+import UserNavBar from "../../components/navigation/UserNavBar.jsx"; 
 import './Message.css';
 
 const Message = () => {
@@ -142,7 +142,7 @@ const Message = () => {
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
           />
-          <button onClick={handleSendMessage} type="button">➤</button>
+          <button onClick={handleSendMessage} type="button">âž¤</button>
         </div>
         <div className="navbar-fixed-container">
           <UserNavBar />

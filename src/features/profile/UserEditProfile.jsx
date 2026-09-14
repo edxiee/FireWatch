@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import { auth, db } from "../firebase";
+﻿import React, { useState, useEffect, useRef } from "react";
+import { auth, db } from "../../services/firebase.js";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import UserNavBar from "./UserNavBar.jsx"; 
+import UserNavBar from "../../components/navigation/UserNavBar.jsx"; 
 import "./UserEditProfile.css";
 
 export default function UserEditProfile() {

@@ -1,29 +1,67 @@
-# api keys / secrets
+# =========================
+# API KEYS / SECRETS
+# =========================
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*
 
-# dependencies
+# Keep example env files if you use one
+!.env.example
+
+# =========================
+# DEPENDENCIES
+# =========================
 /node_modules
 /.pnp
 .pnp.js
 
-# testing
+# =========================
+# TESTING
+# =========================
 /coverage
 
-# production
+# =========================
+# PRODUCTION BUILDS
+# =========================
 /build
 /dist
 /dist-ssr
 /out
 
-# misc
+# =========================
+# FIREWATCH TEMP / BACKUPS
+# =========================
+.import-fix-backup-*/
+*.backup.css
+*.backup.jsx
+*.backup.js
+
+# =========================
+# VITE CACHE
+# =========================
+node_modules/.vite/
+.vite/
+
+# =========================
+# CAPACITOR / MOBILE BUILD OUTPUT
+# =========================
+android/.gradle/
+android/app/build/
+ios/App/DerivedData/
+
+# =========================
+# MISC
+# =========================
 .DS_Store
+Thumbs.db
 *.pem
 
-# logs
+# =========================
+# LOGS
+# =========================
 logs
 *.log
 npm-debug.log*
@@ -32,7 +70,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Editor directories and files
+# =========================
+# EDITOR DIRECTORIES / FILES
+# =========================
 .vscode/*
 !.vscode/extensions.json
 .idea

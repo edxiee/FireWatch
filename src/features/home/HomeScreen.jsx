@@ -1,6 +1,6 @@
-import React from "react";
+﻿import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import UserNavBar from "./UserNavBar"; 
+import UserNavBar from "../../components/navigation/UserNavBar.jsx"; 
 import "./HomeScreen.css";
 
 export default function HomeScreen() {
@@ -41,7 +41,7 @@ export default function HomeScreen() {
                 <h3>FIRE PREVENTION</h3>
                 <p>Safety tips and emergency preparedness guides.</p>
               </div>
-              <div className="arrow-link">→</div>
+              <div className="arrow-link">â†’</div>
             </div>
 
             {/* SERVICE 2: NOTIFICATION */}
@@ -55,7 +55,7 @@ export default function HomeScreen() {
                 <h3>Notification</h3>
                 <p>Allow our notification features to keep you informed.</p>
               </div>
-              <div className="arrow-link">→</div>
+              <div className="arrow-link">â†’</div>
             </div>
 
             {/* SERVICE 3: MESSAGES */}
@@ -69,7 +69,7 @@ export default function HomeScreen() {
                 <h3>Messages</h3>
                 <p>Direct communication for reporting and updates.</p>
               </div>
-              <div className="arrow-link">→</div>
+              <div className="arrow-link">â†’</div>
             </div>
 
             {/* SERVICE 4: USER PROFILE */}
@@ -83,7 +83,7 @@ export default function HomeScreen() {
                 <h3>User Profile</h3>
                 <p>Edit your personal details so we would know you better.</p>
               </div>
-              <div className="arrow-link">→</div>
+              <div className="arrow-link">â†’</div>
             </div>
           </div>
         </div>

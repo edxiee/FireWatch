@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../services/firebase.js";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
-  sendEmailVerification, // 1. Added this import
-  signOut                // 2. Added this to log them out pending verification
+  sendEmailVerification,
+  signOut
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import "./Auth.css";
@@ -23,11 +23,34 @@ const EyeOffIcon = () => (
 export default function Auth() {
   const navigate = useNavigate();
   
+  // ✅ NEW: Auto-redirect if user is already logged in
+  useEffect(() => {
+    const checkAuthAndRedirect = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          const userData = userDoc.exists() ? userDoc.data() : null;
+          
+          if (userData && userData.role === "admin") {
+            navigate("/admin", { replace: true });
+          } else {
+            const hasSeenLanding = localStorage.getItem("hasSeenFireWatchIntro");
+            navigate(!hasSeenLanding ? "/landing" : "/home", { replace: true });
+          }
+        } catch (error) {
+          console.error("Error checking user role:", error);
+        }
+      }
+    };
+    checkAuthAndRedirect();
+  }, [navigate]);
+
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [verificationSent, setVerificationSent] = useState(false); // 3. New state for UI
+  const [verificationSent, setVerificationSent] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,25 +83,21 @@ export default function Auth() {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // 1. Fetch user data FIRST to check the role
         const userDoc = await getDoc(doc(db, "users", user.uid));
         const userData = userDoc.exists() ? userDoc.data() : null;
 
-        // 2. Check Role: Admins skip verification
         if (userData && userData.role === "admin") {
           navigate("/admin");
-          return; // Exit early, they are good to go!
+          return;
         }
 
-        // 3. For regular users, enforce email verification
         if (!user.emailVerified) {
-          await signOut(auth); // Sign them back out
+          await signOut(auth);
           alert("Please verify your email before logging in. Check your inbox!");
           setLoading(false);
           return;
         }
 
-        // 4. If verified regular user, check landing status
         const hasSeenLanding = localStorage.getItem("hasSeenFireWatchIntro");
         navigate(!hasSeenLanding ? "/landing" : "/home");
 
@@ -93,7 +112,6 @@ export default function Auth() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Save to Firestore
         await setDoc(doc(db, "users", user.uid), {
           firstName,
           lastName,
@@ -104,7 +122,6 @@ export default function Auth() {
           createdAt: new Date()
         });
         
-        // Send verification email and sign out
         await sendEmailVerification(user);
         await signOut(auth); 
         
@@ -117,7 +134,6 @@ export default function Auth() {
     }
   };
 
-  // 6. UI for when verification is sent
   if (verificationSent) {
     return (
       <div className="auth-container">
